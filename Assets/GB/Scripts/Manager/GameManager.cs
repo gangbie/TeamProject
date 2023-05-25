@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public const string DefaultName = "Manager";
+
     private static GameManager instance;
     private static DataManager dataManager;
+
     public static GameManager Instance { get { return instance; } }
     public static DataManager Data { get { return dataManager; } }
-
 
     private void Awake()
     {
         if (instance != null)
         {
+            Debug.LogWarning("GameInstance: valid instance already registered.");
             Destroy(this);
             return;
         }
-        DontDestroyOnLoad(this);
+
         instance = this;
+        DontDestroyOnLoad(this);
         InitManagers();
     }
 
@@ -30,9 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void InitManagers()
     {
-        // DataManager init
-        GameObject dataObj = new GameObject() { name = "DataManager" };
-        dataObj.transform.SetParent(transform);
-        dataManager = dataObj.AddComponent<DataManager>();
+        GameObject dataObject = new GameObject() { name = "DataManager" };
+        dataManager = gameObject.AddComponent<DataManager>();
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneFlow : MonoBehaviour
 {
-    private State curState;
+    [SerializeField] private State curState;
 
     public UnityEvent OnReadyed;
     public UnityEvent OnPlayed;
@@ -38,6 +38,7 @@ public class GameSceneFlow : MonoBehaviour
 
     public void Play()
     {
+        //SceneManager.LoadScene("Map1");
         ChangeState(State.Play);
     }
 
