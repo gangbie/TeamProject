@@ -23,6 +23,8 @@ public class Boss : MonoBehaviour
     public UnityEvent OnAttacked;
     public UnityEvent OnAttackedEnd;
     public float waitTime;
+    public int bossHP = 3;
+    public bool attacked = false;
 
     private void Awake()
     {
@@ -72,11 +74,15 @@ public class Boss : MonoBehaviour
         }
         lastJumpTime += Time.deltaTime;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        attacked = true;
+    }
 }
 
 namespace BossState
 {
-    public enum State {Idle, Trace, Attack, Attacked, Page2, Page3, Size }
+    public enum State {Idle, Trace, Attack, Attacked, Page2, Page3, Size, Charge, Death}
 
     public class IdleState : StateBase
     {
@@ -98,12 +104,33 @@ namespace BossState
 
         public override void Update()
         {
-            if(idleTime > 3)
+            if(boss.bossHP == 3)
             {
-                boss.StateChange(State.Trace);
-                idleTime = 0;
+                if (idleTime > 3)
+                {
+                    boss.StateChange(State.Trace);
+                    idleTime = 0;
+                }
+                idleTime += Time.deltaTime;
             }
-            idleTime += Time.deltaTime;
+            else if(boss.bossHP == 2)
+            {
+                if (idleTime > 3)
+                {
+                    boss.StateChange(State.Page2);
+                    idleTime = 0;
+                }
+                idleTime += Time.deltaTime;
+            }
+            else if (boss.bossHP == 1)
+            {
+                if (idleTime > 3)
+                {
+                    boss.StateChange(State.Page3);
+                    idleTime = 0;
+                }
+                idleTime += Time.deltaTime;
+            }
         }
     }
 
@@ -148,6 +175,10 @@ namespace BossState
                 }
             }
             if (Vector2.Distance(boss.player.position, boss.transform.position) < boss.attackRange)
+            {
+                boss.StateChange(State.Attack);
+            }
+            if (boss.attacked == true)
             {
                 boss.StateChange(State.Attacked);
             }
@@ -203,6 +234,7 @@ namespace BossState
         }
         public override void Update()
         {
+            boss.bossHP -=  1;
             boss.anim.SetTrigger("Attacked");
             boss.OnAttacked?.Invoke();
             if(waitingTime > 4)
