@@ -70,7 +70,9 @@ public class BaePlayerController : MonoBehaviour
     //피격시 무적
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag=="Monster")
+        if (collision.gameObject.tag=="Ground")
+            isGround = true;
+        if (collision.gameObject.tag=="Monster")
         {
             OnDamaged(collision.transform.position);
         }
@@ -83,7 +85,7 @@ public class BaePlayerController : MonoBehaviour
         rend.color = new Color(1, 1, 1 ,0.4f);
 
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rb.AddForce(new Vector2(dirc,1)*3, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(dirc * 3, 3);
 
         Invoke("OffDamaged", 2);
     }
@@ -96,11 +98,12 @@ public class BaePlayerController : MonoBehaviour
     //점프시 모션 변경및 몬스 터 밟기
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGround = true;
+        if(collision.gameObject.tag=="Gound")
+            isGround = true;
         ani.SetBool("JumpBool", false);
         if(collision.gameObject.tag=="Monster")
         {
-            rb.AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, 5);
         }
             
 

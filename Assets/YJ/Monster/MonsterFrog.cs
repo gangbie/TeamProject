@@ -37,7 +37,10 @@ public class MonsterFrog : MonoBehaviour
 
     public void Update()
     {
-        
+        if(hp<=0)
+        {
+            monster[(int)FrogState.Die].Update();
+        }
         monster[(int)curState].Update();
         
     }
@@ -48,29 +51,12 @@ public class MonsterFrog : MonoBehaviour
         curState=state;
         monster[(int)curState].Enter();
     }
-    /*public void Move()
-    {
-        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-    }*/
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hp--;
-        FrogChangeState(FrogState.Die);
+        if(collision.gameObject.tag=="Player")
+         hp--;
     }
-    /*private void GroundCheck()
-    {
-        RaycastHit2D hit=Physics2D.Raycast(transform.position, Vector2.down, 1.5f,groundLayer);
-        
-        if(hit.collider !=null)
-        {
-            
-            animator.SetBool("GroundSet", true);
-        }
-        else
-        {
-            animator.SetBool("GroundSet", false);
-        }
-    }*/
     public class IdleUpdate : MonsterBase
     {
         private MonsterFrog frog;
