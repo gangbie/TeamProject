@@ -10,14 +10,22 @@ public class GameStartScene : MonoBehaviour
     public UnityEvent OnWall;
     public UnityEvent OnUIOff;
     public UnityEvent OnPlayed;
+    public UnityEvent OnGameEND;
     private float waitTime = 2;
 
-    private void Start()
-    {
-    }
     private void Update()
     {
         StartCoroutine(CoroutineWait());
+    }
+    public void GameEnd()
+    {
+        StartCoroutine(CorutineEND());
+    }
+
+    IEnumerator CorutineEND()
+    {
+        yield return new WaitForSeconds(6);
+        OnGameEND?.Invoke();
     }
 
     IEnumerator CoroutineWait()

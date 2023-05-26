@@ -23,6 +23,7 @@ public class Boss : MonoBehaviour
     public Animator anim;
     public UnityEvent OnAttacked;
     public UnityEvent OnAttackedEnd;
+    public UnityEvent OnBossDead;
     public float waitTime;
     public int bossHP = 3;
     public bool attacked = false;
@@ -149,6 +150,7 @@ public class Boss : MonoBehaviour
     }
     public void Death()
     {
+        OnBossDead?.Invoke();
         Destroy(gameObject, 4f);
     }
     IEnumerator CoroutineWait()
