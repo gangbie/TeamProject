@@ -14,7 +14,7 @@ public class GameSceneFlowMap1 : MonoBehaviour
 
     private void Start()
     {
-        GameOver();
+        Play();
         GameManager.Data.CurScore = 0;
     }
 
