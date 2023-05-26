@@ -20,6 +20,7 @@ public class MonsterDog : MonoBehaviour
     private Rigidbody2D rb;
     private int monsterIndex=0;
 
+    
     private void Awake()
     {
         monster = new MonsterBase[(int)DogState.Size];
@@ -35,7 +36,7 @@ public class MonsterDog : MonoBehaviour
     }
     private void Update()
     {
-        if (hp == 0)
+        if (hp <= 0)
         {
             ChangeState(DogState.Die);
         }
@@ -44,7 +45,8 @@ public class MonsterDog : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hp--;
+        if (collision.gameObject.tag == "Player")
+            hp--;
     }
 
     public void ChangeState(DogState state)

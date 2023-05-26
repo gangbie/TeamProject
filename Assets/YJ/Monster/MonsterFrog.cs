@@ -12,7 +12,7 @@ public enum FrogState
 public class MonsterFrog : MonoBehaviour
 {
     [SerializeField] private float jumpPower;
-    [SerializeField] private int hp;
+    [SerializeField] public int hp;
     [SerializeField] private LayerMask groundLayer;
     private float idleTime = 0;
     
@@ -30,14 +30,17 @@ public class MonsterFrog : MonoBehaviour
     }
     private void Start()
     {
-        curState = FrogState.Jump;
+        curState = FrogState.Idle;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     public void Update()
     {
-        
+        if(hp<=0)
+        {
+            FrogChangeState(FrogState.Die);
+        }
         monster[(int)curState].Update();
         
     }
@@ -48,29 +51,17 @@ public class MonsterFrog : MonoBehaviour
         curState=state;
         monster[(int)curState].Enter();
     }
-    /*public void Move()
-    {
-        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-    }*/
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hp--;
-        FrogChangeState(FrogState.Die);
-    }
-    /*private void GroundCheck()
-    {
-        RaycastHit2D hit=Physics2D.Raycast(transform.position, Vector2.down, 1.5f,groundLayer);
-        
-        if(hit.collider !=null)
-        {
-            
+        if(collision.gameObject.tag=="Ground")
             animator.SetBool("GroundSet", true);
-        }
-        else
-        {
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag=="Ground")
             animator.SetBool("GroundSet", false);
-        }
-    }*/
+    }
     public class IdleUpdate : MonsterBase
     {
         private MonsterFrog frog;
@@ -118,17 +109,6 @@ public class MonsterFrog : MonoBehaviour
         public override void Update()
         {
             frog.rb.AddForce(Vector2.up * frog.jumpPower, ForceMode2D.Impulse);
-            RaycastHit2D hit = Physics2D.Raycast(frog.transform.position, Vector2.down, 1.5f, frog.groundLayer);
-
-            if (hit.collider != null)
-            {
-
-                frog.animator.SetBool("GroundSet", true);
-            }
-            else
-            {
-                frog.animator.SetBool("GroundSet", false);
-            }
             frog.FrogChangeState(FrogState.Idle);
         }
     }
