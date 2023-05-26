@@ -81,6 +81,7 @@ public class BaePlayerController : MonoBehaviour
     public void OnDamaged(Vector2 targetPos)
     {
         gameObject.layer = 10;
+        
 
         rend.color = new Color(1, 1, 1 ,0.4f);
 
@@ -103,7 +104,7 @@ public class BaePlayerController : MonoBehaviour
         ani.SetBool("JumpBool", false);
         if(collision.gameObject.tag=="Monster")
         {
-            rb.velocity = new Vector2(rb.velocity.x, 5);
+            rb.velocity = new Vector2(rb.velocity.x, 17);
         }
             
 

@@ -30,7 +30,7 @@ public class MonsterFrog : MonoBehaviour
     }
     private void Start()
     {
-        curState = FrogState.Jump;
+        curState = FrogState.Idle;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -39,7 +39,7 @@ public class MonsterFrog : MonoBehaviour
     {
         if(hp<=0)
         {
-            monster[(int)FrogState.Die].Update();
+            FrogChangeState(FrogState.Die);
         }
         monster[(int)curState].Update();
         
@@ -56,6 +56,13 @@ public class MonsterFrog : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
          hp--;
+        if(collision.gameObject.tag=="Ground")
+            animator.SetBool("GroundSet", true);
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag=="Ground")
+            animator.SetBool("GroundSet", false);
     }
     public class IdleUpdate : MonsterBase
     {
@@ -104,17 +111,6 @@ public class MonsterFrog : MonoBehaviour
         public override void Update()
         {
             frog.rb.AddForce(Vector2.up * frog.jumpPower, ForceMode2D.Impulse);
-            RaycastHit2D hit = Physics2D.Raycast(frog.transform.position, Vector2.down, 1.5f, frog.groundLayer);
-
-            if (hit.collider != null)
-            {
-
-                frog.animator.SetBool("GroundSet", true);
-            }
-            else
-            {
-                frog.animator.SetBool("GroundSet", false);
-            }
             frog.FrogChangeState(FrogState.Idle);
         }
     }
