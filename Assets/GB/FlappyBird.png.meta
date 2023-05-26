@@ -309,13 +309,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FlappyBird_8
+      name: ScoreBox
       rect:
         serializedVersion: 2
-        x: 146
-        y: 140
-        width: 119
-        height: 58
+        x: 147
+        y: 141
+        width: 112
+        height: 56
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -519,13 +519,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FlappyBird_18
+      name: MenuButton
       rect:
         serializedVersion: 2
-        x: 246
-        y: 124
-        width: 40
-        height: 14
+        x: 247
+        y: 126
+        width: 38
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -582,13 +582,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FlappyBird_21
+      name: OkButton
       rect:
         serializedVersion: 2
-        x: 246
-        y: 108
-        width: 40
-        height: 14
+        x: 247
+        y: 110
+        width: 38
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -834,13 +834,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FlappyBird_33
+      name: score
       rect:
         serializedVersion: 2
-        x: 244
-        y: 69
-        width: 40
-        height: 14
+        x: 245
+        y: 71
+        width: 38
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -918,12 +918,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FlappyBird_37
+      name: GameOver
       rect:
         serializedVersion: 2
         x: 146
         y: 38
-        width: 48
+        width: 94
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1400,11 +1400,9 @@ TextureImporter:
       FlappyBird_15: -2142518680
       FlappyBird_16: 1095972615
       FlappyBird_17: 345706755
-      FlappyBird_18: -1181138715
       FlappyBird_19: 2100347312
       FlappyBird_2: -343376140
       FlappyBird_20: -1642548468
-      FlappyBird_21: -1740782320
       FlappyBird_22: 1444564536
       FlappyBird_23: 621413575
       FlappyBird_24: 1911232589
@@ -1416,11 +1414,9 @@ TextureImporter:
       FlappyBird_30: 1282159915
       FlappyBird_31: -686844059
       FlappyBird_32: -1051345605
-      FlappyBird_33: -862480849
       FlappyBird_34: 1032638601
       FlappyBird_35: -643199279
       FlappyBird_36: -889904247
-      FlappyBird_37: 1083014210
       FlappyBird_38: 150766727
       FlappyBird_39: 2119587954
       FlappyBird_4: 157458102
@@ -1445,10 +1441,14 @@ TextureImporter:
       FlappyBird_58: 1245004655
       FlappyBird_6: 446722919
       FlappyBird_7: 2093996821
-      FlappyBird_8: -1138025169
       FlappyBird_9: 213045017
+      GameOver: 1083014210
       GetReady: 446761056
+      MenuButton: -1181138715
+      OkButton: -1740782320
+      ScoreBox: -1138025169
       Tap: 565609729
+      score: -862480849
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

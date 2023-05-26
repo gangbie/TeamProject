@@ -5,14 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-
-    //private void Update()
-    //{
-    //    ChangeScene();
-    //}
-
     public void ChangeSceneByName(string sceneName)
     {
-        SceneManager.LoadScene(sceneName , LoadSceneMode.Single);
+        StartCoroutine(LoadScene(sceneName));
+        
+    }
+
+    IEnumerator LoadScene(string sceneName)
+    {
+        yield return new WaitForSeconds(1.2f);
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
