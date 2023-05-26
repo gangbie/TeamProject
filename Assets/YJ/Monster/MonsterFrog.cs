@@ -14,6 +14,8 @@ public class MonsterFrog : MonoBehaviour
     [SerializeField] private float jumpPower;
     [SerializeField] private int hp;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Collider2D groundCol;
+    [SerializeField] private Collider2D hitbox;   
     private float idleTime = 0;
     
     private MonsterBase[] monster;

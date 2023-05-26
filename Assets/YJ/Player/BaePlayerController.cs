@@ -10,6 +10,7 @@ public class BaePlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpPower;
+    [SerializeField] private GameObject hitbox;
     private bool isGround = true;
 
     public UnityEvent OnJumped;
@@ -81,18 +82,19 @@ public class BaePlayerController : MonoBehaviour
     public void OnDamaged(Vector2 targetPos)
     {
         gameObject.layer = 10;
-        
+        hitbox.SetActive(false);
 
         rend.color = new Color(1, 1, 1 ,0.4f);
 
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rb.velocity = new Vector2(dirc * 3, 3);
+        rb.velocity = new Vector2(dirc * 7 , 7);
 
         Invoke("OffDamaged", 2);
     }
     public void OffDamaged()
     {
         gameObject.layer = 8;
+        hitbox.SetActive(true);
         rend.color = new Color(1, 1, 1, 1);
     }
 
