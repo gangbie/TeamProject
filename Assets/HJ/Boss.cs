@@ -13,8 +13,9 @@ public class Boss : MonoBehaviour
     public float movePower;
     public float jumpPower;
     public float attackRange;
+    public float chargePower;
     private float lastJumpTime = 0;
-    private float JumpCoolTime = 3;
+    public float JumpCoolTime = 3;
     private StateBase[] states;
     private State curState;
     public Vector2 zero = new Vector2(0, 0);
@@ -25,6 +26,12 @@ public class Boss : MonoBehaviour
     public float waitTime;
     public int bossHP = 3;
     public bool attacked = false;
+    float attackedtime = 0;
+    public bool viewRight = false;
+    public bool viewLeft = true;
+    public float lastChargeTime = 0;
+    public float ChargeCoolTime = 7;
+    public UnityEvent OnCharged;
 
     private void Awake()
     {
@@ -32,22 +39,28 @@ public class Boss : MonoBehaviour
         states = new StateBase[(int)State.Size];
         states[(int)State.Idle] = new IdleState(this);
         states[(int)State.Trace] = new TraceState(this);
-        states[(int)State.Attack] = new AttackState(this);
         states[(int)State.Attacked] = new AttackedState(this);
         states[(int)State.Page2] = new Page2State(this);
-        states[(int)State.Page3] = new Page3State(this);
+        states[(int)State.Death] = new DeathState(this);
     }
 
     private void Start()
     {
-        curState = State.Idle;
-        states[(int)curState].Enter();
         anim = GetComponent<Animator>();
+        states[(int)curState].Enter();
+        StartCoroutine(CoroutineWait());
+        curState = State.Idle;
     }
 
     private void Update()
     {
         states[(int)curState].Update();
+        if (attackedtime > 1)
+        {
+            attacked = false;
+            attackedtime = 0;
+        }
+        attackedtime += Time.deltaTime;
     }
     public void StateChange(State state)
     {
@@ -61,7 +74,8 @@ public class Boss : MonoBehaviour
         dir = (player.position - transform.position);
         if (lastJumpTime > JumpCoolTime)
         {
-            if(dir.x > zero.x)
+            anim.SetTrigger("Jump");
+            if (dir.x > zero.x)
             {
                 rb.AddForce(Vector2.right * movePower, ForceMode2D.Impulse);
             }
@@ -73,22 +87,79 @@ public class Boss : MonoBehaviour
             lastJumpTime = 0;
         }
         lastJumpTime += Time.deltaTime;
+        if (dir.x > zero.x)
+        {
+            if (viewLeft)
+            {
+                transform.Rotate(Vector3.up, 180);
+                viewRight = true;
+                viewLeft = false;
+            }
+        }
+        else
+        {
+            if (viewRight)
+            {
+                transform.Rotate(Vector3.up, 180);
+                viewRight = false;
+                viewLeft = true;
+            }
+        }
+    }
+    public void Charge()
+    {
+        dir = (player.position - transform.position);
+        if (lastChargeTime > ChargeCoolTime)
+        {
+            if (dir.x > zero.x)
+            {
+                Debug.Log("Rcharge");
+                rb.AddForce(Vector2.right * chargePower, ForceMode2D.Impulse);
+            }
+            else
+            {
+                Debug.Log("Lcharge");
+                rb.AddForce(Vector2.left * chargePower, ForceMode2D.Impulse);
+            }
+            lastChargeTime = 0;
+        }
+        lastChargeTime += Time.deltaTime;
+        if (dir.x > zero.x)
+        {
+            if (viewLeft)
+            {
+                transform.Rotate(Vector3.up, 180);
+                viewRight = true;
+                viewLeft = false;
+            }
+        }
+        else
+        {
+            if (viewRight)
+            {
+                transform.Rotate(Vector3.up, 180);
+                viewRight = false;
+                viewLeft = true;
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        float attackedtime = 0;
         attacked = true;
-        if (attackedtime > 1)
-        {
-            attacked = false;
-        }
-        attackedtime += Time.deltaTime;
+    }
+    public void Death()
+    {
+        Destroy(gameObject, 4f);
+    }
+    IEnumerator CoroutineWait()
+    {
+        yield return new WaitForSeconds(10);
     }
 }
 
 namespace BossState
 {
-    public enum State {Idle, Trace, Attack, Attacked, Page2, Page3, Size, Charge, Death}
+    public enum State {Idle, Trace, Attacked, Page2, Death, Size}
 
     public class IdleState : StateBase
     {
@@ -123,7 +194,8 @@ namespace BossState
             {
                 if (idleTime > 3)
                 {
-                    boss.StateChange(State.Page2);
+                    boss.JumpCoolTime = 2;
+                    boss.StateChange(State.Trace);
                     idleTime = 0;
                 }
                 idleTime += Time.deltaTime;
@@ -132,7 +204,7 @@ namespace BossState
             {
                 if (idleTime > 3)
                 {
-                    boss.StateChange(State.Page3);
+                    boss.StateChange(State.Page2);
                     idleTime = 0;
                 }
                 idleTime += Time.deltaTime;
@@ -143,8 +215,6 @@ namespace BossState
     public class TraceState : StateBase
     {
         private Boss boss;
-        private bool viewRight = false;
-        private bool viewLeft = true;
 
         public TraceState(Boss boss)
         {
@@ -160,66 +230,12 @@ namespace BossState
         }
         public override void Update()
         {
-            boss.dir = (boss.player.position - boss.transform.position);
             boss.Jump();
-            if (boss.dir.x > boss.zero.x)
-            {
-                if (viewLeft)
-                {
-                    boss.transform.Rotate(Vector3.up, 180);
-                    viewRight = true;
-                    viewLeft = false;
-                }
-            }
-            else
-            {
-                if (viewRight)
-                {
-                    boss.transform.Rotate(Vector3.up, 180);
-                    viewRight = false;
-                    viewLeft = true;
-                }
-            }
-            if (Vector2.Distance(boss.player.position, boss.transform.position) < boss.attackRange)
-            {
-                boss.StateChange(State.Attack);
-            }
             if (boss.attacked == true)
             {
                 boss.StateChange(State.Attacked);
             }
 
-        }
-    }
-
-    public class AttackState : StateBase
-    {
-        float lastAttackTime = 0;
-        private Boss boss;
-        public AttackState(Boss boss)
-        {
-            this.boss = boss;
-        }
-        public override void Enter()
-        {
-            Debug.Log("AttackEnter");
-        }
-        public override void Exit()
-        {
-            Debug.Log("AttackExit");
-        }
-        public override void Update()
-        {
-            if (lastAttackTime > 1)
-            {
-                boss.anim.SetTrigger("Attack");
-                lastAttackTime = 0;
-            }
-            lastAttackTime += Time.deltaTime;
-            if (Vector2.Distance(boss.player.position, boss.transform.position) > boss.attackRange)
-            {
-                boss.StateChange(State.Trace);
-            }
         }
     }
 
@@ -263,32 +279,43 @@ namespace BossState
         }
         public override void Enter()
         {
+            boss.OnCharged?.Invoke();
+            Debug.Log("Page2Enter");
         }
         public override void Exit()
         {
+            Debug.Log("Page2Exit");
         }
         public override void Update()
         {
-            boss.Jump();
+            boss.Charge();
+            if(boss.attacked == true)
+            {
+                boss.StateChange(State.Death);
+            }
         }
     }
 
-    public class Page3State : StateBase
+    public class DeathState : StateBase
     {
         private Boss boss;
-        public Page3State(Boss boss)
+
+        public DeathState(Boss boss)
         {
             this.boss = boss;
         }
         public override void Enter()
         {
+            boss.anim.SetTrigger("");
+            Debug.Log("DeathEnter");
         }
         public override void Exit()
         {
+            Debug.Log("DeathExit");
         }
         public override void Update()
         {
-            boss.Jump();
+            boss.Death();
         }
     }
 }
