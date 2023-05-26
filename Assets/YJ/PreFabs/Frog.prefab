@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 218407106753985470}
-  - component: {fileID: 218407106753985471}
-  m_Layer: 0
+  - component: {fileID: 2577891606057636034}
+  m_Layer: 9
   m_Name: GroundSet
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,15 +25,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218407106753985441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.007, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 218407107435497842}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &218407106753985471
-CircleCollider2D:
+--- !u!70 &2577891606057636034
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -42,12 +42,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01560729, y: -0.06867414}
-  serializedVersion: 2
-  m_Radius: 0.08483805
+  m_Offset: {x: -0.0019463131, y: -0.029191526}
+  m_Size: {x: 0.092753276, y: 0.13167673}
+  m_Direction: 0
 --- !u!1 &218407107435497847
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,9 +62,9 @@ GameObject:
   - component: {fileID: 218407107435497840}
   - component: {fileID: 218407107435497843}
   - component: {fileID: 218407107435497841}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Frog
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 7
+  hp: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

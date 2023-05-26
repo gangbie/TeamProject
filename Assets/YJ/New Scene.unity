@@ -3269,7 +3269,7 @@ GameObject:
   - component: {fileID: 1190519732}
   - component: {fileID: 1190519731}
   - component: {fileID: 1190519730}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BaePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3291,6 +3291,15 @@ MonoBehaviour:
   moveSpeed: 5
   maxSpeed: 5
   jumpPower: 7
+  OnJumped:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDied:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScored:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1190519731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3439,7 +3448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190519729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.53, y: 1.16, z: 0}
+  m_LocalPosition: {x: 28.76, y: 1.19, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3954,7 +3963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810239256}
   - component: {fileID: 1810239257}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3999,25 +4008,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 288410335, guid: 91c9f77689c017d41b117056247653c1, type: 3}
-      propertyPath: m_TagString
-      value: Monster
+    - target: {fileID: 288410336, guid: 91c9f77689c017d41b117056247653c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.037
       objectReference: {fileID: 0}
     - target: {fileID: 288410336, guid: 91c9f77689c017d41b117056247653c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.056
-      objectReference: {fileID: 0}
-    - target: {fileID: 288410337, guid: 91c9f77689c017d41b117056247653c1, type: 3}
-      propertyPath: m_Radius
-      value: 0.039423686
-      objectReference: {fileID: 0}
-    - target: {fileID: 288410337, guid: 91c9f77689c017d41b117056247653c1, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.016576342
-      objectReference: {fileID: 0}
-    - target: {fileID: 288410337, guid: 91c9f77689c017d41b117056247653c1, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.023231937
+      value: -0.006
       objectReference: {fileID: 0}
     - target: {fileID: 3234985367531593591, guid: 91c9f77689c017d41b117056247653c1, type: 3}
       propertyPath: m_Name
@@ -4075,6 +4072,10 @@ PrefabInstance:
       propertyPath: monsterPoint.Array.data[1]
       value: 
       objectReference: {fileID: 284582066}
+    - target: {fileID: 4035891138044615126, guid: 91c9f77689c017d41b117056247653c1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c9f77689c017d41b117056247653c1, type: 3}
 --- !u!1001 &218407107020109742
@@ -4084,34 +4085,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 218407106753985441, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_TagString
-      value: Monster
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407106753985470, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.153
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407106753985471, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_Radius
-      value: 0.042057388
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407106753985471, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.07591398
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407107435497840, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407107435497840, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 218407107435497841, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: hp
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 218407107435497842, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4160,9 +4133,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: frog-idle-1
       objectReference: {fileID: 0}
-    - target: {fileID: 218407107435497847, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
-      propertyPath: m_TagString
-      value: Monster
+    - target: {fileID: 2577891606057636034, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8c0cbaae5007934b9e9b0f41802968d, type: 3}

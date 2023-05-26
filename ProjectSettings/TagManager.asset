@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Ground
   - BackGround
-  - 
-  - 
-  - 
+  - Player
+  - Monster
+  - PlayerDamaged
   - 
   - 
   - 

@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288410336}
-  - component: {fileID: 288410337}
-  m_Layer: 0
+  - component: {fileID: 4035891138044615126}
+  m_Layer: 9
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,15 +25,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288410335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.003, y: 0.005, z: 0}
+  m_LocalPosition: {x: 0.031, y: 0.034, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3234985367531593595}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &288410337
-CircleCollider2D:
+--- !u!70 &4035891138044615126
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -42,12 +42,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.024119787, y: 0.018705864}
-  serializedVersion: 2
-  m_Radius: 0.06658011
+  m_Offset: {x: -0.040060896, y: 0.030680368}
+  m_Size: {x: 0.059417233, y: 0.0972787}
+  m_Direction: 0
 --- !u!1 &3234985367531593591
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 3234985367531593592}
   - component: {fileID: 3234985367531593596}
   - component: {fileID: 3234985367531593597}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: dog-idlet1
   m_TagString: Monster
   m_Icon: {fileID: 0}
