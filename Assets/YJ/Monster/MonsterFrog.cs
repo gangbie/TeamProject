@@ -12,10 +12,8 @@ public enum FrogState
 public class MonsterFrog : MonoBehaviour
 {
     [SerializeField] private float jumpPower;
-    [SerializeField] private int hp;
+    [SerializeField] public int hp;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Collider2D groundCol;
-    [SerializeField] private Collider2D hitbox;   
     private float idleTime = 0;
     
     private MonsterBase[] monster;
@@ -56,8 +54,6 @@ public class MonsterFrog : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="Player")
-         hp--;
         if(collision.gameObject.tag=="Ground")
             animator.SetBool("GroundSet", true);
     }
