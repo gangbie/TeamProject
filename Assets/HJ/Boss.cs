@@ -74,9 +74,15 @@ public class Boss : MonoBehaviour
         }
         lastJumpTime += Time.deltaTime;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
+        float attackedtime = 0;
         attacked = true;
+        if (attackedtime > 1)
+        {
+            attacked = false;
+        }
+        attackedtime += Time.deltaTime;
     }
 }
 
@@ -182,6 +188,7 @@ namespace BossState
             {
                 boss.StateChange(State.Attacked);
             }
+
         }
     }
 
@@ -219,7 +226,7 @@ namespace BossState
     public class AttackedState : StateBase
     {
         private Boss boss;
-        float waitingTime;
+        float waitingTime = 0;
         public AttackedState(Boss boss)
         {
             this.boss = boss;
@@ -227,6 +234,9 @@ namespace BossState
         public override void Enter()
         {
             Debug.Log("AttackedEnter");
+            boss.bossHP -= 1;
+            boss.anim.SetTrigger("Attacked");
+            boss.OnAttacked?.Invoke();
         }
         public override void Exit()
         {
@@ -234,9 +244,6 @@ namespace BossState
         }
         public override void Update()
         {
-            boss.bossHP -=  1;
-            boss.anim.SetTrigger("Attacked");
-            boss.OnAttacked?.Invoke();
             if(waitingTime > 4)
             {
                 boss.OnAttackedEnd?.Invoke();
