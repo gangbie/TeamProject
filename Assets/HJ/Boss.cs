@@ -30,7 +30,7 @@ public class Boss : MonoBehaviour
     public bool viewRight = false;
     public bool viewLeft = true;
     public float lastChargeTime = 0;
-    public float ChargeCoolTime = 7;
+    public float ChargeCoolTime = 5;
     public UnityEvent OnCharged;
 
     private void Awake()
@@ -153,7 +153,7 @@ public class Boss : MonoBehaviour
     }
     IEnumerator CoroutineWait()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(13);
     }
 }
 

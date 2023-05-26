@@ -24,7 +24,7 @@ public class GameStartScene : MonoBehaviour
     {
         OnUIOff?.Invoke();
         yield return new WaitForSeconds(waitTime);
-        waitTime = 1;
+        waitTime = 1.5f;
         OnCameraBoss?.Invoke();
         yield return new WaitForSeconds(waitTime);
         OnCameraPlayer?.Invoke();
