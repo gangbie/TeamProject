@@ -17,6 +17,10 @@ TagManager:
   - Player
   - Monster
   - PlayerDamaged
+  - Enemy
+  - skytile
+  - 
+  - 
   - 
   - 
   - 

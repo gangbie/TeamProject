@@ -5,57 +5,33 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class GameSceneFlow : MonoBehaviour
+public class GameSceneFlowMap1 : MonoBehaviour
 {
     [SerializeField] private State curState;
 
-    public UnityEvent OnReadyed;
     public UnityEvent OnPlayed;
     public UnityEvent OnGameOvered;
 
     private void Start()
     {
-        ChangeState(State.Ready);
-    }
-
-    public void ChangeState(State state)
-    {
-        curState = state;
-        switch (state)
-        {
-            case State.Ready:
-                OnReadyed?.Invoke();
-                GameManager.Data.CurScore = 0;
-                break;
-            case State.Play:
-                OnPlayed?.Invoke();
-                break;
-            case State.GameOver:
-                OnGameOvered?.Invoke();
-                break;
-        }
+        Play();
+        GameManager.Data.CurScore = 0;
     }
 
     public void Play()
     {
-        //SceneManager.LoadScene("Map1");
-        ChangeState(State.Play);
+        curState = State.Play;
+        OnPlayed?.Invoke();
     }
 
     public void GameOver()
     {
-        ChangeState(State.GameOver);
+        curState = State.GameOver;
+        OnGameOvered?.Invoke();
     }
 
-    public void Ok()
-    {
-        SceneManager.LoadScene("TitleScene");
-    }
-
-    [Serializable]
     public enum State
     {
-        Ready,
         Play,
         GameOver,
     }
